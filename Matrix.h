@@ -16,6 +16,13 @@ class Matrix {
 public:
     Matrix(int, string);
     ~Matrix();
+
+    /*
+     * Methods
+     */
+
+    string** getMatrix();
+    bool     compareMatrix(string**);
 private:
     /*
      * Variables
@@ -27,9 +34,6 @@ private:
     /*
      * Methods
      */
-    string** getMatrix();
-
-    bool compareMatrix(string**);
 
     void allocateMemory();
     void freeMemory();

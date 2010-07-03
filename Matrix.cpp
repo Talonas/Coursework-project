@@ -48,3 +48,20 @@ void Matrix::fillMatrixValues() {
         for (int j = 0; j < this->size; j++)
             this->matrix[i][j] = file->charToString(file->getChar());
 }
+
+/*
+ * PUBLIC
+ */
+
+string** Matrix::getMatrix() {
+    return this->matrix;
+}
+
+bool Matrix::compareMatrix(string** otherMatrix) {
+    for (int i = 0; i < this->size; i++)
+        for (int j = 0; j < this->size; j++)
+            if (otherMatrix[i][j] != this->matrix[i][j])
+                return false;
+
+    return true;
+}
