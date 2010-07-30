@@ -16,7 +16,7 @@ public:
     int    stringToInt(string);
     
 private:
-    ifstream file;
+    ifstream* file;
 };
 
 #endif	/* _FILE_H */
