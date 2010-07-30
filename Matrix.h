@@ -1,7 +1,7 @@
-#include <string>
-
 #ifndef _MATRIX_H
 #define	_MATRIX_H
+
+#include <string>
 
 using namespace std;
 

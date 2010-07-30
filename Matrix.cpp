@@ -1,5 +1,7 @@
 #include <string>
+
 #include "Matrix.h"
+#include "File.h"
 
 using namespace std;
 
@@ -64,4 +66,9 @@ void Matrix::fillContent() {
     /**
      * Fills matrix content
      */
+    File* file = new File(this->file_name);
+    
+    for (int i = 0; i < this->size; i++)
+        for (int j = 0; j < this->size; j++)
+            this->content[i][j] = file->charToString(file->getChar());
 }
