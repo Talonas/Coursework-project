@@ -75,7 +75,7 @@ matrix_allocate_memory(struct matrix_s *matrix)
 		goto done;
 	}
 
-	matrix->content = malloc(matrix->size);
+	matrix->content = malloc(matrix->size * sizeof(char *));
 	if (matrix->content == NULL)
 	{
 		printf("ERROR: low memory\n");
