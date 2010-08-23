@@ -1,15 +1,13 @@
 NAME   = program
 
-CPP    = g++
-CFLAGS = -Wall -c
-LFALGS = -g
+CC    = gcc
+CFLAGS = -Wall -pedantic -c
 
-SRC  = ArnoldCatMap.cpp BakersMap.cpp File.cpp Matrix.cpp SourceModificator.cpp
-HDRC = $(SRC:.cpp=.h)
-OBJ  = $(SRC:.cpp=.o) main.o
+SRC  = file.c matrix.c
+OBJ  = $(SRC:.c=.o) main.o
 
 compile: $(OBJ)
-	$(CPP) $(LFLAGS) -o $(NAME) $(OBJ)
+	$(CC) $(LFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	rm -fr *~ *.o *.gch
