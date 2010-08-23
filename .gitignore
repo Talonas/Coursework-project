@@ -1,4 +1,5 @@
 program
 *.o
-nbproject
-Makefile-Coursework-project.mk
+*c.swp
+*h.swp
+.gitignore
