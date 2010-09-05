@@ -9,7 +9,7 @@ matrix_allocate_memory(struct matrix_s *matrix);
 
 
 struct matrix_s *
-matrix_init(char *file_name)
+matrix_init(const char *file_name)
 {
 	struct matrix_s *matrix = NULL;
 	int ret;
@@ -56,16 +56,17 @@ matrix_deinit(struct matrix_s *matrix)
 		return;
 	}
 
+	for (i = 0; i < matrix->size; i++)
+	{
+		if (matrix->content[i] != NULL)
+		{
+			free(matrix->content[i]);
+			matrix->content[i] = NULL;
+		}
+	}
+	
 	if (matrix->content != NULL)
 	{
-		for (i = 0; i < matrix->size; i++)
-		{
-			if (matrix->content[i] != NULL)
-			{
-				free(matrix->content[i]);
-				matrix->content[i] = NULL;
-			}
-		}
 		free(matrix->content);
 	}
 }
@@ -82,7 +83,7 @@ matrix_allocate_memory(struct matrix_s *matrix)
 		printf("ERROR: matrix is NULL\n");
 		goto done;
 	}
-
+/*
 	matrix->content = malloc(matrix->size * sizeof(char *));
 	if (matrix->content == NULL)
 	{
@@ -99,11 +100,32 @@ matrix_allocate_memory(struct matrix_s *matrix)
 			goto done;
 		}
 	}
+*/
+	matrix->content = malloc(matrix->size * sizeof(int *));
+	if (matrix->content == NULL)
+	{
+		printf("ERROR: low memory\n");
+		goto fail;
+	}
+
+	for (i = 0; i < matrix->size; i++)
+	{
+		matrix->content[i] = malloc(matrix->size);
+		if (matrix->content[i] == NULL)
+		{
+			printf("ERROR: low memory\n");
+			goto fail;
+		}
+	}
 
 	retval = 0;
 
 done:
 	return retval;
+
+fail:
+	matrix_deinit(matrix);
+	goto done;
 }
 
 void
@@ -116,19 +138,23 @@ matrix_print(struct matrix_s *matrix)
 	{
 		for (j = 0; j < matrix->size; j++)
 		{
-			printf("%c ", matrix->content[i][j]);
+			printf("%d ", matrix->content[i][j]);
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
 void
 matrix_fill_content(struct matrix_s *matrix)
 {
-	int i;
+	int i, j;
 
 	for (i = 0; i < matrix->size; i++)
 	{
-		matrix->content[i] = file_get_str(matrix->buf);
+		for (j = 0; j < matrix->size; j++)
+		{
+			matrix->content[i][j] = file_get_int(matrix->buf);
+		}
 	}
 }

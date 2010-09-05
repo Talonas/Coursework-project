@@ -13,7 +13,9 @@ main(int argc, char **argv)
 
 	struct matrix_s *matrix = NULL;
 	struct cat_map_s *cat_map = NULL;
-	
+	const char *file_name;
+
+	file_name = "test";	
 /*
 	if (argc < 4)
 	{
@@ -21,14 +23,26 @@ main(int argc, char **argv)
 		return -1;
 	}
 */
+/*
+	file_add_int(file_name, 5);
+	file_add_str(file_name, "11111");
+	file_add_str(file_name, "22222");
+	file_add_str(file_name, "33333");
+	file_add_str(file_name, "44444");
+	file_add_str(file_name, "55555");
+*/
+	file_add_int(file_name, 3);
+	file_add_int(file_name, 1);
+	file_add_int(file_name, 1);
+	file_add_int(file_name, 1);
+	file_add_int(file_name, 2);
+	file_add_int(file_name, 2);
+	file_add_int(file_name, 2);
+	file_add_int(file_name, 3);
+	file_add_int(file_name, 3);
+	file_add_int(file_name, 3);
 
-	file_add_int("test", 4);
-	file_add_str("test", "1111");
-	file_add_str("test", "2222");
-	file_add_str("test", "3333");
-	file_add_str("test", "4444");
-
-	matrix = matrix_init("test");
+	matrix = matrix_init(file_name);
 	if (matrix == NULL)
 	{
 		printf("ERROR: could not initialize new matrix\n");
@@ -46,8 +60,10 @@ main(int argc, char **argv)
 
 	cat_map_transform(cat_map, 1);
 	cat_map_print(cat_map);
-	cat_map_transform(cat_map, 3);
+	cat_map_transform(cat_map, 2);
 	cat_map_print(cat_map);
+
+	matrix_print(matrix);
 
 	return 0;
 }

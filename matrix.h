@@ -5,11 +5,11 @@
 
 struct matrix_s {
 	int size;
-	char **content;
+	int **content;
 	struct buf_s *buf;
 };
 
-struct matrix_s *matrix_init(char *file_name);
+struct matrix_s *matrix_init(const char *file_name);
 
 void matrix_deinit(struct matrix_s *matrix);
 void matrix_print(struct matrix_s *matrix);

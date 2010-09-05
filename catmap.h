@@ -4,7 +4,7 @@
 #include "matrix.h"
 
 struct cat_map_s {
-	char **content;
+	int **content;
 	int size;
 	int period;
 	int curr_step;

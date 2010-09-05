@@ -2,14 +2,12 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/uio.h>
 #include <string.h>
 
 #include "file.h"
 
 struct buf_s *
-buf_init(char *file_name)
+buf_init(const char *file_name)
 {
 	struct buf_s *buf = NULL;
 	size_t size;

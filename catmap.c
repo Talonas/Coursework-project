@@ -12,7 +12,7 @@ transform(struct cat_map_s *cat_map)
 {
 	int i, j;
 	int x, y;
-	char **temp_content = NULL;
+	int **temp_content = NULL;
 
 	if (cat_map == NULL)
 	{
@@ -20,7 +20,7 @@ transform(struct cat_map_s *cat_map)
 		return;
 	}
 
-	temp_content = malloc(cat_map->size * sizeof(char *));
+	temp_content = malloc(cat_map->size * sizeof(int *));
 	if (temp_content == NULL)
 	{
 		printf("ERROR: low memory");
@@ -38,7 +38,11 @@ transform(struct cat_map_s *cat_map)
 
 	for (i = 0; i < cat_map->size; i++)
 	{
-		memcpy(temp_content[i], cat_map->content[i], cat_map->size);
+		for (j = 0; j < cat_map->size; j++)
+		{
+			//memcpy(temp_content[i], cat_map->content[i], cat_map->size);
+			temp_content[i][j] = cat_map->content[i][j];
+		}
 	}
 
 	for (i = 0; i < cat_map->size; i++)
@@ -76,7 +80,7 @@ struct cat_map_s *
 cat_map_init(struct matrix_s *matrix)
 {
 	struct cat_map_s *cat_map = NULL;
-	int i;
+	int i, j;
 
 	if (matrix == NULL)
 	{
@@ -96,12 +100,13 @@ cat_map_init(struct matrix_s *matrix)
 	cat_map->period = 0;
 	cat_map->curr_step = 0;
 
-	cat_map->content = malloc(cat_map->size * sizeof(char *));
+	cat_map->content = malloc(cat_map->size * sizeof(int *));
 	if (cat_map->content == NULL)
 	{
 		printf("ERROR: low memory\n");
 		goto fail;
 	}
+
 	for (i = 0; i < cat_map->size; i++)
 	{
 		cat_map->content[i] = malloc(cat_map->size);
@@ -114,7 +119,11 @@ cat_map_init(struct matrix_s *matrix)
 
 	for (i = 0; i < cat_map->size; i++)
 	{
-		memcpy(cat_map->content[i], matrix->content[i], matrix->size);
+		for (j = 0; j < cat_map->size; j++)
+		{
+			//memcpy(cat_map->content[i], matrix->content[i], matrix->size);
+			cat_map->content[i][j] = matrix->content[i][j];
+		}
 	}
 
 done:
@@ -170,7 +179,7 @@ cat_map_print(struct cat_map_s *cat_map)
 	{
 		for (j = 0; j < cat_map->size; j++)
 		{
-			printf("%c ", cat_map->content[i][j]);
+			printf("%d ", cat_map->content[i][j]);
 		}
 		printf("\n");
 	}
@@ -199,17 +208,3 @@ cat_map_transform(struct cat_map_s *cat_map, int steps_cnt)
 	}
 }
 
-/*
-void
-cat_map_start_transform(struct cat_map_s *cat_map)
-{
-	if (cat_map == NULL)
-	{
-		printf("[%s] ERROR: cat map is NULL", __func__);
-		return;
-	}
-	
-	cat_map_transform(cat_map);
-}
-
-*/

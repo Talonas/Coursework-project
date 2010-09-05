@@ -7,7 +7,7 @@ struct buf_s {
 	char *buf;
 };
 
-struct buf_s *buf_init(char *file_name);
+struct buf_s *buf_init(const char *file_name);
 
 int file_add(const char *file_name, const void *val, const size_t size);
 int file_add_str(const char *file_name, const char *str);
