@@ -1,9 +1,9 @@
 NAME   = program
 
 CC    = gcc
-CFLAGS = -Wall -pedantic -c
+CFLAGS = -Wall -c
 
-SRC  = file.c matrix.c
+SRC  = file.c matrix.c catmap.c
 OBJ  = $(SRC:.c=.o) main.o
 
 compile: $(OBJ)

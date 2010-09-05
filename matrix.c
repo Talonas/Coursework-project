@@ -2,17 +2,18 @@
 #include <stdlib.h>
 
 #include "matrix.h"
+#include "file.h"
 
 static int
 matrix_allocate_memory(struct matrix_s *matrix);
 
 
 struct matrix_s *
-matrix_init(int size)
+matrix_init(char *file_name)
 {
 	struct matrix_s *matrix = NULL;
 	int ret;
-
+	struct buf_s *buf = NULL;
 
 	matrix = malloc(sizeof(matrix));	
 	if (matrix == NULL)
@@ -21,7 +22,16 @@ matrix_init(int size)
 		goto done;
 	}
 
-	matrix->size = size;
+	buf = buf_init(file_name);
+	if (buf == NULL)
+	{
+		printf("ERROR: could not initialize buffer\n");
+		goto done;
+	}
+
+	matrix->buf = buf;
+	matrix->size = file_get_int(buf);
+
 	ret = matrix_allocate_memory(matrix);
 	if (ret != 0)
 	{
@@ -32,7 +42,6 @@ matrix_init(int size)
 	}
 
 	matrix_fill_content(matrix);
-
 done:
 	return matrix;
 }
@@ -41,7 +50,6 @@ void
 matrix_deinit(struct matrix_s *matrix)
 {
 	int i;
-
 
 	if (matrix == NULL)
 	{
@@ -104,7 +112,6 @@ matrix_print(struct matrix_s *matrix)
 	int i;
 	int j;
 
-
 	for (i = 0; i < matrix->size; i++)
 	{
 		for (j = 0; j < matrix->size; j++)
@@ -119,13 +126,9 @@ void
 matrix_fill_content(struct matrix_s *matrix)
 {
 	int i;
-	int j;
 
 	for (i = 0; i < matrix->size; i++)
 	{
-		for (j = 0; j < matrix->size; j++)
-		{
-			matrix->content[i][j] = '0';
-		}
+		matrix->content[i] = file_get_str(matrix->buf);
 	}
 }
