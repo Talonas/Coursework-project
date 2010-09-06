@@ -4,12 +4,14 @@
 #include "matrix.h"
 #include "file.h"
 #include "catmap.h"
+#include "protection.h"
 
 void print_instructions();
 
 int
 main(int argc, char **argv)
 {
+	protection_generate();
 
 	struct matrix_s *matrix = NULL;
 	struct cat_map_s *cat_map = NULL;
@@ -23,24 +25,6 @@ main(int argc, char **argv)
 		return -1;
 	}
 */
-/*
-	file_add_int(file_name, 5);
-	file_add_str(file_name, "11111");
-	file_add_str(file_name, "22222");
-	file_add_str(file_name, "33333");
-	file_add_str(file_name, "44444");
-	file_add_str(file_name, "55555");
-*/
-	file_add_int(file_name, 3);
-	file_add_int(file_name, 1);
-	file_add_int(file_name, 1);
-	file_add_int(file_name, 1);
-	file_add_int(file_name, 2);
-	file_add_int(file_name, 2);
-	file_add_int(file_name, 2);
-	file_add_int(file_name, 3);
-	file_add_int(file_name, 3);
-	file_add_int(file_name, 3);
 
 	matrix = matrix_init(file_name);
 	if (matrix == NULL)
@@ -50,7 +34,8 @@ main(int argc, char **argv)
 	}
 
 	matrix_print(matrix);
-
+	
+	/*
 	cat_map = cat_map_init(matrix);
 	if (cat_map == NULL)
 	{
@@ -62,9 +47,7 @@ main(int argc, char **argv)
 	cat_map_print(cat_map);
 	cat_map_transform(cat_map, 2);
 	cat_map_print(cat_map);
-
-	matrix_print(matrix);
-
+	*/
 	return 0;
 }
 

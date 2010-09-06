@@ -28,7 +28,7 @@ transform(struct cat_map_s *cat_map)
 	}
 	for (i = 0; i < cat_map->size; i++)
 	{
-		temp_content[i] = malloc(cat_map->size);
+		temp_content[i] = malloc(cat_map->size * sizeof(int));
 		if (temp_content[i] == NULL)
 		{
 			printf("ERROR: low memory");
@@ -40,7 +40,6 @@ transform(struct cat_map_s *cat_map)
 	{
 		for (j = 0; j < cat_map->size; j++)
 		{
-			//memcpy(temp_content[i], cat_map->content[i], cat_map->size);
 			temp_content[i][j] = cat_map->content[i][j];
 		}
 	}
@@ -121,7 +120,6 @@ cat_map_init(struct matrix_s *matrix)
 	{
 		for (j = 0; j < cat_map->size; j++)
 		{
-			//memcpy(cat_map->content[i], matrix->content[i], matrix->size);
 			cat_map->content[i][j] = matrix->content[i][j];
 		}
 	}

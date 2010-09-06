@@ -30,8 +30,7 @@ matrix_init(const char *file_name)
 	}
 
 	matrix->buf = buf;
-	matrix->size = file_get_int(buf);
-
+	matrix->size = file_get_int(buf);	
 	ret = matrix_allocate_memory(matrix);
 	if (ret != 0)
 	{
@@ -83,24 +82,7 @@ matrix_allocate_memory(struct matrix_s *matrix)
 		printf("ERROR: matrix is NULL\n");
 		goto done;
 	}
-/*
-	matrix->content = malloc(matrix->size * sizeof(char *));
-	if (matrix->content == NULL)
-	{
-		printf("ERROR: low memory\n");
-		goto done;
-	}
 
-	for (i = 0; i < matrix->size; i++)
-	{
-		matrix->content[i] = malloc(matrix->size);
-		if (matrix->content[i] == NULL)
-		{
-			printf("ERROR: low memory\n");
-			goto done;
-		}
-	}
-*/
 	matrix->content = malloc(matrix->size * sizeof(int *));
 	if (matrix->content == NULL)
 	{
@@ -110,7 +92,7 @@ matrix_allocate_memory(struct matrix_s *matrix)
 
 	for (i = 0; i < matrix->size; i++)
 	{
-		matrix->content[i] = malloc(matrix->size);
+		matrix->content[i] = malloc(matrix->size * sizeof(int));
 		if (matrix->content[i] == NULL)
 		{
 			printf("ERROR: low memory\n");
@@ -153,7 +135,7 @@ matrix_fill_content(struct matrix_s *matrix)
 	for (i = 0; i < matrix->size; i++)
 	{
 		for (j = 0; j < matrix->size; j++)
-		{
+		{	
 			matrix->content[i][j] = file_get_int(matrix->buf);
 		}
 	}
