@@ -7,6 +7,10 @@
 
 static void transform(struct cat_map_s *cat_map);
 
+/**
+ * Transfroms matrix content
+ * by Arnold's Cat Map algorithm
+ */
 void
 transform(struct cat_map_s *cat_map)
 {
@@ -75,6 +79,11 @@ done:
 	}
 }
 
+/**
+ * Initialize Cat Map
+ * @params[in] Matrix structure
+ * @params[out] Cat Map structure
+ */
 struct cat_map_s *
 cat_map_init(struct matrix_s *matrix)
 {
@@ -132,6 +141,10 @@ fail:
 	goto done;
 }
 
+/**
+ * Cat Map destructor
+ * @params[in] Cat Map structure
+ */
 void
 cat_map_deinit(struct cat_map_s *cat_map)
 {
@@ -162,6 +175,10 @@ cat_map_deinit(struct cat_map_s *cat_map)
 	cat_map = NULL;
 }
 
+/**
+ * Prints Cat Map matrix
+ * @params[in] Cat Map structure
+ */
 void
 cat_map_print(struct cat_map_s *cat_map)
 {
@@ -184,6 +201,12 @@ cat_map_print(struct cat_map_s *cat_map)
 	printf("\n");
 }
 
+/**
+ * Transforms Cat Map matrix.
+ * @param[in] Cat Map structure
+ * @param[in] how many times do transformation. If zero, then
+ *            transform one time
+ */
 void
 cat_map_transform(struct cat_map_s *cat_map, int steps_cnt)
 {

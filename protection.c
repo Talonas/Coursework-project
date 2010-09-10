@@ -1,34 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "protection.h"
 #include "file.h"
 #include "catmap.h"
+#include "matrix.h"
 
-static int values[5][5] = {
-	{4, 1, 1, 1, 1},
-	{1, 2, 2, 2, 2},
-	{3, 3, 3, 3, 3},
-	{4, 4, 4, 4, 4},
-	{5, 5, 5, 5, 5}
-};
+struct cat_map_s catmap = NULL;
+const *char file_name = NULL;
 
-static int size = 5;
-static int steps = 4;
-static char file_name[] = "test";
-
-void
-protection_generate()
+/**
+ * Gets license from file
+ */
+int
+protection_get_license()
 {
-	int i, j;
+	int retval = -1;
+	struct matrix_s matrix = NULL;
+	file_name = "license";
 
-	file_reset(file_name);
-	file_add_int(file_name, size);
-	for (i = 0; i < size; i++)
+	matrix = matrix_init(file_name);
+	if (matrix == NULL)
 	{
-		for (j = 0; j < size; j++)
-		{
-			file_add_int(file_name, values[i][j]);
-		}
+		printf("ERROR: couldn't initialize matrix\n");
+		goto done;
 	}
+
+	catmap = cat_map_init(matrix);
+	if (catmap == NULL)
+	{
+		printf("ERROR: could'nt init cat map\n");
+		goto done;
+	}
+
+	retval = 0;
+
+done:
+	if (matrix != NULL)
+	{
+		free(matrix);
+		matrix = NULL;
+	}
+
+	return buf;
+}
+
+/**
+ * Mixing matrix one time
+ */
+void
+protection_mix()
+{
+
+}
+
+/**
+ * Checking if program's license is valid
+ */
+bool
+protection_get_value()
+{
+
 }

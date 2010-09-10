@@ -6,6 +6,9 @@
 
 #include "file.h"
 
+/**
+ * Initializes buffer for work with files
+ */
 struct buf_s *
 buf_init(const char *file_name)
 {
@@ -78,6 +81,12 @@ fail:
 	goto done;
 }
 
+/**
+ * Adds string or buffer buffer
+ * @params[in] name of file
+ * @params[in] value (string, int)
+ * @params[in] size of value
+ */
 int
 file_add(const char *file_name, const void *val, const size_t size)
 {
@@ -110,6 +119,11 @@ done:
 	return retval;
 }
 
+/**
+ * Adds string to buffer
+ * @params[in] file name
+ * @params[in] string value
+ */
 int
 file_add_str(const char *file_name, const char *str)
 {
@@ -122,6 +136,11 @@ file_add_str(const char *file_name, const char *str)
 	return retval;
 }
 
+/**
+ * Adds integer value to buffer
+ * @params[in] file name
+ * @params[in] integer value
+ */
 int
 file_add_int(const char *file_name, const int val)
 {
@@ -132,6 +151,9 @@ file_add_int(const char *file_name, const int val)
 	return retval;
 }
 
+/**
+ * Removes content
+ */
 int
 file_reset(char *file_name)
 {
@@ -158,6 +180,9 @@ done:
 	return retval;
 }
 
+/**
+ * Gets integer value
+ */
 int
 file_get_int(struct buf_s *buf)
 {

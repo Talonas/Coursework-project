@@ -7,7 +7,11 @@
 static int
 matrix_allocate_memory(struct matrix_s *matrix);
 
-
+/**
+ * Matrix constructor
+ * @params[in] file's name
+ * @params[out] structure of Matrix
+ */
 struct matrix_s *
 matrix_init(const char *file_name)
 {
@@ -70,6 +74,9 @@ matrix_deinit(struct matrix_s *matrix)
 	}
 }
 
+/**
+ * Allocates memory for matrix content
+ */
 static int
 matrix_allocate_memory(struct matrix_s *matrix)
 {
@@ -110,6 +117,9 @@ fail:
 	goto done;
 }
 
+/**
+ * Prints matrix content
+ */
 void
 matrix_print(struct matrix_s *matrix)
 {
@@ -127,6 +137,9 @@ matrix_print(struct matrix_s *matrix)
 	printf("\n");
 }
 
+/**
+ * Generates content of matrix from file
+ */
 void
 matrix_fill_content(struct matrix_s *matrix)
 {
