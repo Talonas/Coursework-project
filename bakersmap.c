@@ -15,7 +15,59 @@ static void fill_content(struct bakersmap_s *baker, struct matrix_s *matrix);
 static void
 transform(struct bakersmap_s *baker)
 {
+	/**
+	 * TODO: finish this function!
+	 */
 
+	int i, j;
+	int x, y;
+	int row, col;
+	int **temp_content = NULL;
+
+	/* Prepare */
+	if (baker == NULL)
+	{
+		return;
+	}
+
+	temp_content = malloc(baker->size * sizeof(int *));
+	if (temp_content == NULL)
+	{
+		printf("ERROR: low mem\n");
+		goto fail;
+	}
+
+	for (i = 0; i < baker->size; i++)
+	{
+		temp_content[i] = malloc(baker->size * sizeof(int));
+		if (temp_content[i] == NULL)
+		{
+			printf("ERROR: low mem\n");
+			goto fail;
+		}
+	}
+
+	for (i = 0; i < baker->size; i++)
+	{
+		for (j = 0; j < baker->size; j++)
+		{
+			temp_content[i][j] = baker->content[i][j];
+		}
+	}
+
+	/* Begin algorithm */
+	row = 0;
+	for (i = 0; i < baker->size; i++)
+	{
+		col = baker->size - 1;
+		for (j = 0; j < baker->size; j++)
+		{
+
+		}
+	}
+
+fail:
+	return;
 }
 
 /**

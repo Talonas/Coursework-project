@@ -5,9 +5,81 @@
 #include "catmap.h"
 #include "matrix.h"
 
+static void free_temp_content(struct cat_map_s *cat_map, int **temp_content);
+static int **generate_temp_content(struct cat_map_s *cat_map);
 static void transform(struct cat_map_s *cat_map);
 static void fill_content(struct cat_map_s *cat_map, struct matrix_s *matrix);
 static int allocate_memory(struct cat_map_s *cat_map);
+
+/**
+ * Deallocates temp content
+ */
+static void
+free_temp_content(struct cat_map_s *cat_map, int **temp_content)
+{
+	int i;
+
+	if (cat_map == NULL)
+	{
+		return;
+	}
+
+	for (i = 0; i < cat_map->size; i++)
+	{
+		if (temp_content[i] != NULL)
+		{
+			free(temp_content[i]);
+			temp_content[i] = NULL;
+		}
+	}
+
+	if (temp_content != NULL)
+	{
+		free(temp_content);
+		temp_content = NULL;
+	}
+}
+
+/**
+ * Generates temp content
+ */
+static int**
+generate_temp_content(struct cat_map_s *cat_map)
+{
+	int **temp_content = NULL;
+	int i, j;
+
+	temp_content = malloc(cat_map->size * sizeof(int *));
+	if (temp_content == NULL)
+	{
+		printf("ERROR: low memory");
+		goto done;
+	}
+	for (i = 0; i < cat_map->size; i++)
+	{
+		temp_content[i] = malloc(cat_map->size * sizeof(int));
+		if (temp_content[i] == NULL)
+		{
+			printf("ERROR: low memory");
+			goto fail;
+		}
+	}
+
+	for (i = 0; i < cat_map->size; i++)
+	{
+		for (j = 0; j < cat_map->size; j++)
+		{
+			temp_content[i][j] = cat_map->content[i][j];
+		}
+	}
+
+done:
+	return temp_content;
+
+fail:
+	free_temp_content(cat_map, temp_content);
+	goto done;
+}
 
 /**
  * Transfroms matrix content
@@ -26,28 +98,11 @@ transform(struct cat_map_s *cat_map)
 		return;
 	}
 
-	temp_content = malloc(cat_map->size * sizeof(int *));
+	temp_content = generate_temp_content(cat_map);
 	if (temp_content == NULL)
 	{
-		printf("ERROR: low memory");
+		printf("ERROR: could not generate temp content\n");
 		goto done;
-	}
-	for (i = 0; i < cat_map->size; i++)
-	{
-		temp_content[i] = malloc(cat_map->size * sizeof(int));
-		if (temp_content[i] == NULL)
-		{
-			printf("ERROR: low memory");
-			goto done;
-		}
-	}
-
-	for (i = 0; i < cat_map->size; i++)
-	{
-		for (j = 0; j < cat_map->size; j++)
-		{
-			temp_content[i][j] = cat_map->content[i][j];
-		}
 	}
 
 	for (i = 0; i < cat_map->size; i++)
@@ -65,20 +120,7 @@ transform(struct cat_map_s *cat_map)
 	}
 
 done:
-	for (i = 0; i < cat_map->size; i++)
-	{
-		if (temp_content[i] != NULL)
-		{
-			free(temp_content[i]);
-			temp_content[i] = NULL;
-		}
-	}
-	
-	if (temp_content != NULL)
-	{
-		free(temp_content);
-		temp_content = NULL;
-	}
+	free_temp_content(cat_map, temp_content);
 }
 
 static void
