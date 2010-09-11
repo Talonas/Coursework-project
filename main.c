@@ -21,5 +21,8 @@ main(int argc, char **argv)
 		protection_check();
 	}
 
+	protection_free();
+
 	return 0;
 }
+

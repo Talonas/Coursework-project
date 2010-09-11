@@ -53,6 +53,7 @@ void
 protection_message()
 {
 	printf("You don't have rights to use this program!\n");
+	exit(-1);
 }
 
 /**
@@ -70,13 +71,20 @@ protection_mix()
 void
 protection_check()
 {
+	cat_map_print(matrix);
 	protection_mix();
 
-	if (matrix->content[1][1] != 1)
+	if (matrix->content[0][1] != 1)
 	{
 		protection_message();
-		exit(-1);
 	}
 }
 
-
+/**
+ * Release memory of matrix
+ */
+void
+protection_free()
+{
+	cat_map_deinit(matrix);
+}
