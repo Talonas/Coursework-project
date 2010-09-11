@@ -114,6 +114,7 @@ done:
 	if (file != NULL)
 	{
 		fclose(file);
+		file = NULL;
 	}
 
 	return retval;
@@ -175,6 +176,7 @@ done:
 	if (file != NULL)
 	{
 		fclose(file);
+		file = NULL;
 	}
 
 	return retval;

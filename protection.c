@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #include "protection.h"
 #include "file.h"
 #include "catmap.h"
 #include "matrix.h"
 
-struct cat_map_s catmap = NULL;
-const *char file_name = NULL;
+struct cat_map_s *matrix = NULL;
 
 /**
  * Gets license from file
@@ -17,18 +15,20 @@ int
 protection_get_license()
 {
 	int retval = -1;
-	struct matrix_s matrix = NULL;
+	struct matrix_s *_matrix = NULL;
+	const char *file_name;
+	
 	file_name = "license";
 
-	matrix = matrix_init(file_name);
-	if (matrix == NULL)
+	_matrix = matrix_init(file_name);
+	if (_matrix == NULL)
 	{
 		printf("ERROR: couldn't initialize matrix\n");
 		goto done;
 	}
 
-	catmap = cat_map_init(matrix);
-	if (catmap == NULL)
+	matrix = cat_map_init(_matrix);
+	if (matrix == NULL)
 	{
 		printf("ERROR: could'nt init cat map\n");
 		goto done;
@@ -37,13 +37,22 @@ protection_get_license()
 	retval = 0;
 
 done:
-	if (matrix != NULL)
+	if (_matrix != NULL)
 	{
-		free(matrix);
-		matrix = NULL;
+		free(_matrix);
+		_matrix = NULL;
 	}
 
-	return buf;
+	return retval;
+}
+
+/**
+ * Print error message
+ */
+void
+protection_message()
+{
+	printf("You don't have rights to use this program!\n");
 }
 
 /**
@@ -52,14 +61,22 @@ done:
 void
 protection_mix()
 {
-
+	cat_map_transform(matrix, 1);
 }
 
 /**
  * Checking if program's license is valid
  */
-bool
-protection_get_value()
+void
+protection_check()
 {
+	protection_mix();
 
+	if (matrix->content[1][1] != 1)
+	{
+		protection_message();
+		exit(-1);
+	}
 }
+
+
