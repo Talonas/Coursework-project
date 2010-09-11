@@ -106,7 +106,6 @@ done:
 	if (matrix != NULL)
 	{
 		matrix_deinit(matrix);
-		matrix = NULL;
 	}
 
 	return baker;
@@ -143,6 +142,11 @@ bakers_map_deinit(struct bakersmap_s *baker)
 	}
 }
 
+/**
+ * Transforms matrx content by algorithm
+ * @params[in] bakers map struct
+ * @params[in] how many times to do transformation
+ */
 void
 bakers_map_transform(struct bakersmap_s *baker, int steps_cnt)
 {

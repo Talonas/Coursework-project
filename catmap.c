@@ -165,7 +165,6 @@ done:
 	if (matrix != NULL)
 	{
 		matrix_deinit(matrix);
-		matrix = NULL;
 	}
 
 	return cat_map;

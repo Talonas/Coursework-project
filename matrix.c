@@ -54,11 +54,6 @@ matrix_deinit(struct matrix_s *matrix)
 {
 	int i;
 
-	if (matrix == NULL)
-	{
-		return;
-	}
-
 	for (i = 0; i < matrix->size; i++)
 	{
 		if (matrix->content[i] != NULL)
@@ -71,6 +66,13 @@ matrix_deinit(struct matrix_s *matrix)
 	if (matrix->content != NULL)
 	{
 		free(matrix->content);
+		matrix->content = NULL;
+	}
+
+	if (matrix != NULL)
+	{
+		free(matrix);
+		matrix = NULL;
 	}
 }
 
