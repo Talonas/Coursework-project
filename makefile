@@ -3,7 +3,7 @@ NAME   = program
 CC    = gcc
 CFLAGS = -Wall -c
 
-SRC  = file.c matrix.c catmap.c protection.c
+SRC  = file.c matrix.c catmap.c bakersmap.c protection.c
 OBJ  = $(SRC:.c=.o) main.o
 
 compile: $(OBJ)

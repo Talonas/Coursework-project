@@ -6,6 +6,8 @@
 #include "matrix.h"
 
 static void transform(struct cat_map_s *cat_map);
+static void fill_content(struct cat_map_s *cat_map, struct matrix_s *matrix);
+static int allocate_memory(struct cat_map_s *cat_map);
 
 /**
  * Transfroms matrix content
@@ -79,6 +81,48 @@ done:
 	}
 }
 
+static void
+fill_content(struct cat_map_s *cat_map, struct matrix_s *matrix)
+{
+	int i, j;
+
+	for (i = 0; i < cat_map->size; i++)
+	{
+		for (j = 0; j < cat_map->size; j++)
+		{
+			cat_map->content[i][j] = matrix->content[i][j];
+		}
+	}
+}
+
+static int
+allocate_memory(struct cat_map_s *cat_map)
+{
+	int ret = -1;
+	int i;
+
+	cat_map->content = malloc(cat_map->size * sizeof(int *));
+	if (cat_map->content == NULL)
+	{
+		printf("ERROR: low memory\n");
+		goto done;
+	}
+
+	for (i = 0; i < cat_map->size; i++)
+	{
+		cat_map->content[i] = malloc(cat_map->size);
+		if (cat_map->content[i] == NULL)
+		{
+			printf("ERROR: low memory\n");
+			goto done;
+		}
+	}
+
+	ret = 0;
+done:
+	return ret;
+}
+
 /**
  * Initialize Cat Map
  * @params[in] Matrix structure
@@ -88,7 +132,7 @@ struct cat_map_s *
 cat_map_init(struct matrix_s *matrix)
 {
 	struct cat_map_s *cat_map = NULL;
-	int i, j;
+	int ret;
 
 	if (matrix == NULL)
 	{
@@ -108,32 +152,22 @@ cat_map_init(struct matrix_s *matrix)
 	cat_map->period = 0;
 	cat_map->curr_step = 0;
 
-	cat_map->content = malloc(cat_map->size * sizeof(int *));
-	if (cat_map->content == NULL)
+	ret = allocate_memory(cat_map);
+	if (ret != 0)
 	{
-		printf("ERROR: low memory\n");
+		printf("ERROR: could not allocate memory\n");
 		goto fail;
 	}
 
-	for (i = 0; i < cat_map->size; i++)
-	{
-		cat_map->content[i] = malloc(cat_map->size);
-		if (cat_map->content[i] == NULL)
-		{
-			printf("ERROR: low memory\n");
-			goto fail;
-		}
-	}
-
-	for (i = 0; i < cat_map->size; i++)
-	{
-		for (j = 0; j < cat_map->size; j++)
-		{
-			cat_map->content[i][j] = matrix->content[i][j];
-		}
-	}
+	fill_content(cat_map, matrix);
 
 done:
+	if (matrix != NULL)
+	{
+		matrix_deinit(matrix);
+		matrix = NULL;
+	}
+
 	return cat_map;
 
 fail:
