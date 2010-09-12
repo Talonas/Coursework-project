@@ -15,7 +15,7 @@ main(int argc, char **argv)
 		printf("Something wrong\n");
 		return -1;
 	}
-
+	
 	for (i = 0; i < 20; i++)
 	{
 		protection_check();

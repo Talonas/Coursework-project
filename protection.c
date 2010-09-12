@@ -37,12 +37,7 @@ protection_get_license()
 	retval = 0;
 
 done:
-	if (_matrix != NULL)
-	{
-		free(_matrix);
-		_matrix = NULL;
-	}
-
+	matrix_deinit(_matrix);
 	return retval;
 }
 

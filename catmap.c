@@ -204,11 +204,6 @@ cat_map_init(struct matrix_s *matrix)
 	fill_content(cat_map, matrix);
 
 done:
-	if (matrix != NULL)
-	{
-		matrix_deinit(matrix);
-	}
-
 	return cat_map;
 
 fail:

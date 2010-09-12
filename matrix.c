@@ -39,14 +39,16 @@ matrix_init(const char *file_name)
 	if (ret != 0)
 	{
 		printf("ERROR: matrix could not be initialized\n");
-		matrix_deinit(matrix);
-		matrix = NULL;
-		goto done;
+		goto fail;
 	}
 
 	matrix_fill_content(matrix);
 done:
 	return matrix;
+
+fail:
+	matrix_deinit(matrix);
+	goto done;
 }
 
 void
@@ -54,6 +56,7 @@ matrix_deinit(struct matrix_s *matrix)
 {
 	int i;
 
+	printf("Deallocating contents\n");
 	for (i = 0; i < matrix->size; i++)
 	{
 		if (matrix->content[i] != NULL)
@@ -63,12 +66,14 @@ matrix_deinit(struct matrix_s *matrix)
 		}
 	}
 	
+	printf("Deallocating content\n");
 	if (matrix->content != NULL)
 	{
 		free(matrix->content);
 		matrix->content = NULL;
 	}
 
+	printf("free matrix\n");
 	if (matrix != NULL)
 	{
 		free(matrix);
