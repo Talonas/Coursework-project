@@ -6,7 +6,7 @@
 #include "catmap.h"
 #include "matrix.h"
 
-struct cat_map_s *matrix = NULL;
+struct matrix_s *matrix = NULL;
 
 /**
  * Gets license from file
@@ -15,29 +15,20 @@ int
 protection_get_license()
 {
 	int retval = -1;
-	struct matrix_s *_matrix = NULL;
 	const char *file_name;
 	
 	file_name = "license";
 
-	_matrix = matrix_init(file_name);
-	if (_matrix == NULL)
-	{
-		printf("ERROR: couldn't initialize matrix\n");
-		goto done;
-	}
-
-	matrix = cat_map_init(_matrix);
+	matrix = matrix_init(file_name);
 	if (matrix == NULL)
 	{
-		printf("ERROR: could'nt init cat map\n");
+		printf("ERROR: couldn't initialize matrix\n");
 		goto done;
 	}
 
 	retval = 0;
 
 done:
-	matrix_deinit(_matrix);
 	return retval;
 }
 
@@ -66,7 +57,7 @@ protection_mix()
 void
 protection_check()
 {
-	cat_map_print(matrix);
+	matrix_print(matrix);
 	protection_mix();
 
 	if (matrix->content[0][1] != 1)
@@ -81,5 +72,5 @@ protection_check()
 void
 protection_free()
 {
-	cat_map_deinit(matrix);
+	matrix_deinit(matrix);
 }
