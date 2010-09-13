@@ -38,17 +38,7 @@ done:
 void
 protection_message()
 {
-	printf("You don't have rights to use this program!\n");
 	exit(-1);
-}
-
-/**
- * Mixing matrix one time
- */
-void
-protection_mix()
-{
-	cat_map_transform(matrix, 1);
 }
 
 /**
@@ -62,7 +52,8 @@ protection_check()
 
 	if (matrix->content[0][1] != 1)
 	{
-		protection_message();
+		printf("You don't have rights to use this program!\n");
+		exit(-1);
 	}
 }
 
