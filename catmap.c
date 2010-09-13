@@ -19,18 +19,7 @@ transform(struct matrix_s *matrix)
 	int x, y;
 	int **temp_content = NULL;
 
-	if (matrix == NULL)
-	{
-		printf("ERROR: matrix is NULL");
-		return;
-	}
-
 	temp_content = generate_temp_content(matrix);
-	if (temp_content == NULL)
-	{
-		printf("ERROR: could not generate temp content\n");
-		goto done;
-	}
 
 	for (i = 0; i < matrix->size; i++)
 	{
@@ -46,7 +35,6 @@ transform(struct matrix_s *matrix)
 		}
 	}
 
-done:
 	free_temp_content(matrix, temp_content);
 }
 
@@ -60,12 +48,6 @@ void
 cat_map_transform(struct matrix_s *matrix, int steps_cnt)
 {
 	int i;
-
-	if (matrix == NULL)
-	{
-		printf("ERROR: matrix is NULL");
-		return;
-	}
 
 	if (steps_cnt < 1)
 	{

@@ -7,17 +7,11 @@ int
 main(int argc, char **argv)
 {
 	int i;
-	int retval;
 
 	/**
 	 * Initialize protection
 	 */
-	retval = protection_get_license();
-	if (retval != 0)
-	{
-		printf("Something wrong\n");
-		return -1;
-	}
+	protection_get_license();
 	
 	/**
 	 * Say that program is running

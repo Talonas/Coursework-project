@@ -4,8 +4,7 @@
 #include "matrix.h"
 #include "file.h"
 
-static int
-matrix_allocate_memory(struct matrix_s *matrix);
+static void matrix_allocate_memory(struct matrix_s *matrix);
 
 /**
  * Matrix constructor
@@ -16,39 +15,18 @@ struct matrix_s *
 matrix_init(const char *file_name)
 {
 	struct matrix_s *matrix = NULL;
-	int ret;
 	struct buf_s *buf = NULL;
 
 	matrix = malloc(sizeof(matrix));	
-	if (matrix == NULL)
-	{
-		printf("ERROR: low memory\n");
-		goto done;
-	}
 
 	buf = buf_init(file_name);
-	if (buf == NULL)
-	{
-		printf("ERROR: could not initialize buffer\n");
-		goto done;
-	}
 
 	matrix->buf = buf;
 	matrix->size = file_get_int(buf);	
-	ret = matrix_allocate_memory(matrix);
-	if (ret != 0)
-	{
-		printf("ERROR: matrix could not be initialized\n");
-		goto fail;
-	}
-
+	matrix_allocate_memory(matrix);
 	matrix_fill_content(matrix);
-done:
-	return matrix;
 
-fail:
-	matrix_deinit(matrix);
-	goto done;
+	return matrix;
 }
 
 void
@@ -84,44 +62,17 @@ matrix_deinit(struct matrix_s *matrix)
 /**
  * Allocates memory for matrix content
  */
-static int
+static void
 matrix_allocate_memory(struct matrix_s *matrix)
 {
-	int retval = -1;
 	int i;
 
-
-	if (matrix == NULL)
-	{
-		printf("ERROR: matrix is NULL\n");
-		goto done;
-	}
-
 	matrix->content = malloc(matrix->size * sizeof(int *));
-	if (matrix->content == NULL)
-	{
-		printf("ERROR: low memory\n");
-		goto fail;
-	}
 
 	for (i = 0; i < matrix->size; i++)
 	{
 		matrix->content[i] = malloc(matrix->size * sizeof(int));
-		if (matrix->content[i] == NULL)
-		{
-			printf("ERROR: low memory\n");
-			goto fail;
-		}
 	}
-
-	retval = 0;
-
-done:
-	return retval;
-
-fail:
-	matrix_deinit(matrix);
-	goto done;
 }
 
 /**

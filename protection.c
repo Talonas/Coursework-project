@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "protection.h"
-#include "file.h"
 #include "catmap.h"
 #include "matrix.h"
 
@@ -11,34 +10,12 @@ struct matrix_s *matrix = NULL;
 /**
  * Gets license from file
  */
-int
+void
 protection_get_license()
 {
-	int retval = -1;
 	const char *file_name;
-	
 	file_name = "license";
-
 	matrix = matrix_init(file_name);
-	if (matrix == NULL)
-	{
-		printf("ERROR: couldn't initialize matrix\n");
-		goto done;
-	}
-
-	retval = 0;
-
-done:
-	return retval;
-}
-
-/**
- * Print error message
- */
-void
-protection_message()
-{
-	exit(-1);
 }
 
 /**
@@ -47,8 +24,7 @@ protection_message()
 void
 protection_check()
 {
-	matrix_print(matrix);
-	protection_mix();
+	cat_map_transform(matrix, 1);
 
 	if (matrix->content[0][1] != 1)
 	{
