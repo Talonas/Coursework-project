@@ -34,7 +34,6 @@ matrix_deinit(struct matrix_s *matrix)
 {
 	int i;
 
-	printf("Deallocating contents\n");
 	for (i = 0; i < matrix->size; i++)
 	{
 		if (matrix->content[i] != NULL)
@@ -44,14 +43,12 @@ matrix_deinit(struct matrix_s *matrix)
 		}
 	}
 	
-	printf("Deallocating content\n");
 	if (matrix->content != NULL)
 	{
 		free(matrix->content);
 		matrix->content = NULL;
 	}
 
-	printf("free matrix\n");
 	if (matrix != NULL)
 	{
 		free(matrix);
