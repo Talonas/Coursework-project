@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 #include "protection.h"
-#include "catmap.h"
-#include "matrix.h"
+#include "Components/catmap.h"
+#include "Components/matrix.h"
 
 struct matrix_s *matrix = NULL;
 
