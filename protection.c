@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 #include "protection.h"
-#include "Components/catmap.h"
-#include "Components/matrix.h"
+#include "catmap.h"
+#include "matrix.h"
 
 struct matrix_s *matrix = NULL;
 
@@ -29,6 +29,7 @@ protection_check()
 	if (matrix->content[0][1] != 1)
 	{
 		printf("You don't have rights to use this program!\n");
+		protection_free();
 		exit(-1);
 	}
 }

@@ -1,21 +1,27 @@
-NAME   = program
+NAME = program
 
-LIBS_DIR = ./Libs/
+CAT_MAP   = cat_map
+BAKER_MAP = baker_map
+GLOBAL    = global
 
-CC    = gcc
-CFLAGS = -Wall -c ./Components/
+CC = gcc
+CFLAGS = -Wall -c
 
-LIBS = $(LIBS_DIR)file.o $(LIBS_DIR)matrix.o $(LIBS_DIR)catmap.o $(LIBS_DIR)helper.o
-SRC  = protection.c
-OBJ  = $(LIBS) $(SRC:.c=.o) main.o
+SRC = helper.c file.c matrix.c catmap.c protection.c
+OBJ = $(SRC:.c=.o)
 
-compile: $(OBJ)
-	$(CC) $(LFLAGS) -o $(NAME) $(OBJ)
+$(CAT_MAP): $(OBJ) main.o
+	$(CC) $(LFLAGS) -o $(CAT_MAP) $(OBJ) main.o
 
-OBJ_TEST = $(LIBS) $(SRC:.=o) test.o
-test: $(OBJ_TEST)
-	$(CC) $(LFLAGS) -o test-program $(OBJ_TEST)
+$(GLOBAL): $(OBJ) main-2.o
+	$(CC) $(LFLAGS) -o $(GLOBAL) $(OBJ) main-2.o
+
+$(BAKER_MAP): $(OBJ) main-3.o
+	$(CC) $(LFLAGS) -o $(BAKER_MAP) $(OBJ) main-3.o
+
+license: $(OBJ) license_gen.o
+	$(CC) $(LFLAGS) -o generate_license $(OBJ) license_gen.o
 
 clean:
-	rm -fr *~ *.o
+	rm -fr *~ *.o *.gch generate_license $(CAT_MAP) $(GLOBAL) $(BAKER_MAP)
 	rm -f $(NAME)
