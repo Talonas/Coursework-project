@@ -41,25 +41,17 @@ transform(struct matrix_s *matrix)
 /**
  * Transforms Cat Map matrix.
  * @param[in] Matrix structure
- * @param[in] how many times do transformation. If zero, then
- *            transform one time
  */
 void
-cat_map_transform(struct matrix_s *matrix, int steps_cnt)
+cat_map_transform(struct matrix_s *matrix)
 {
-	int i;
-
-	if (steps_cnt < 1)
-	{
-		steps_cnt = 1;
-	}
-
-	for (i = 0; i < steps_cnt; i++)
-	{
-		transform(matrix);
-	}
+	transform(matrix);
 }
 
+/**
+ * Deinits matrix of Cat Map
+ * @param[in] matrix
+ */
 void
 cat_map_matrix_deinit(struct matrix_s *matrix)
 {

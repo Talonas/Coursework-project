@@ -11,6 +11,7 @@ struct matrix_s *matrix = NULL;
 static void set_license(void);
 static int protection_check(void);
 
+
 void
 init_license(void)
 {
@@ -37,7 +38,7 @@ static int
 protection_check(void)
 {
 	int ret = 1;
-	cat_map_transform(matrix, 1);
+	cat_map_transform(matrix);
 
 	if (matrix->content[0][1] != 1)
 	{
