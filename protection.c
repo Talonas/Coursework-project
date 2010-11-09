@@ -1,56 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "protection.h"
 #include "catmap.h"
 #include "matrix.h"
-#include "license_gen.h"
 
 struct matrix_s *matrix = NULL;
+static int matrix_size = 4;
 
-static void set_license(void);
-static int protection_check(void);
+static void set_license(int mode);
 
+
+static void
+set_license(int mode)
+{
+	matrix = matrix_initialize(matrix_size);
+	matrix->content[1][2] = mode;
+}
 
 void
 init_license(void)
 {
-	generate(0);
-	set_license();
+	int ret;
+
+	ret = access("license_2", F_OK);
+	set_license(ret == 0);
 }
 
 int
 get_license(void)
 {
-	return protection_check();
-}
-
-static void
-set_license(void)
-{
-	matrix = matrix_init("license");
-}
-
-/**
- * Checking if program's license is valid
- */
-static int
-protection_check(void)
-{
-	int ret = 1;
 	cat_map_transform(matrix);
 
-	if (matrix->content[0][1] != 1)
-	{
-		printf("You don't have rights to use this program!\n");
-		protection_free();
-		//exit(-1);
-		ret = 0;
-		goto done;
-	}
-
-done:
-	return ret;
+	return matrix->content[0][1];
 }
 
 /**

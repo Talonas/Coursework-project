@@ -7,7 +7,7 @@ GLOBAL    = global
 CC = gcc
 CFLAGS = -Wall -c
 
-SRC = helper.c file.c matrix.c catmap.c protection.c license_gen.c
+SRC = helper.c matrix.c catmap.c protection.c 
 OBJ = $(SRC:.c=.o)
 
 $(CAT_MAP): $(OBJ) main.o
@@ -19,9 +19,6 @@ $(GLOBAL): $(OBJ) main-2.o
 $(BAKER_MAP): $(OBJ) main-3.o
 	$(CC) $(LFLAGS) -o $(BAKER_MAP) $(OBJ) main-3.o
 
-license: $(OBJ) license_gen.o
-	$(CC) $(LFLAGS) -o generate_license $(OBJ) license_gen.o
-
 clean:
-	rm -fr *~ *.o *.gch generate_license $(CAT_MAP) $(GLOBAL) $(BAKER_MAP)
+	rm -fr *~ *.o *.gch $(CAT_MAP) $(GLOBAL) $(BAKER_MAP)
 	rm -f $(NAME)
