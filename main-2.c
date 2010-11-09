@@ -20,13 +20,10 @@ get_license(void)
 static void
 init_license(void)
 {
-	int file_des;
-	char *val = malloc(1);
+	int ret;
 
-	file_des = open("license_2", O_RDONLY);
-	read(file_des, val, 1);
-	set_license(atoi(val));
-	free(val);
+	ret = access("license_2", F_OK);
+	set_license(ret == 0);
 }
 
 int
