@@ -6,6 +6,8 @@
 #include "matrix.h"
 #include "helper.h"
 
+extern int matrix_content[4][4];
+
 static void transform(struct matrix_s *matrix);
 
 /**
