@@ -7,7 +7,7 @@ GLOBAL    = global
 CC = gcc
 CFLAGS = -Wall -c
 
-SRC = helper.c file.c matrix.c catmap.c protection.c
+SRC = helper.c file.c matrix.c catmap.c protection.c license_gen.c
 OBJ = $(SRC:.c=.o)
 
 $(CAT_MAP): $(OBJ) main.o

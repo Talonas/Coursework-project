@@ -4,34 +4,52 @@
 #include "protection.h"
 #include "catmap.h"
 #include "matrix.h"
+#include "license_gen.h"
 
 struct matrix_s *matrix = NULL;
 
-/**
- * Gets license from file
- */
+static void set_license(void);
+static int protection_check(void);
+
 void
-protection_get_license()
+init_license(void)
 {
-	const char *file_name;
-	file_name = "license";
-	matrix = matrix_init(file_name);
+	generate(0);
+	set_license();
+}
+
+int
+get_license(void)
+{
+	return protection_check();
+}
+
+static void
+set_license(void)
+{
+	matrix = matrix_init("license");
 }
 
 /**
  * Checking if program's license is valid
  */
-void
-protection_check()
+static int
+protection_check(void)
 {
+	int ret = 1;
 	cat_map_transform(matrix, 1);
 
 	if (matrix->content[0][1] != 1)
 	{
 		printf("You don't have rights to use this program!\n");
-		protection_free();
-		exit(-1);
+		//protection_free();
+		//exit(-1);
+		ret = 0;
+		goto done;
 	}
+
+done:
+	return ret;
 }
 
 /**

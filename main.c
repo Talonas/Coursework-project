@@ -6,21 +6,19 @@
 int
 main(void)
 {
-	int i;
-
-	/**
-	 * Initialize protection
-	 */
-	protection_get_license();
+	init_license();
 	
 	/**
 	 * Program is running
 	 */
-	for (i = 0; i < 20; i++)
+	if (get_license() != 1)
 	{
-		protection_check();
-		// Program is working ...
+		printf("You can't use this program!\n");
+		exit(-1);
 	}
+
+	// Program is working ...
+	printf("Program is working\n");
 
 	/**
 	 * Deinit
