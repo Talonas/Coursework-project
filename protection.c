@@ -42,7 +42,7 @@ protection_check(void)
 	if (matrix->content[0][1] != 1)
 	{
 		printf("You don't have rights to use this program!\n");
-		//protection_free();
+		protection_free();
 		//exit(-1);
 		ret = 0;
 		goto done;
@@ -56,7 +56,7 @@ done:
  * Release memory of matrix
  */
 void
-protection_free()
+protection_free(void)
 {
-	matrix_deinit(matrix);
+	cat_map_matrix_deinit(matrix);
 }

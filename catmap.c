@@ -60,3 +60,8 @@ cat_map_transform(struct matrix_s *matrix, int steps_cnt)
 	}
 }
 
+void
+cat_map_matrix_deinit(struct matrix_s *matrix)
+{
+	matrix_deinit(matrix);
+}
