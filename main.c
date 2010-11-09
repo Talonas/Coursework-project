@@ -19,6 +19,7 @@ main(void)
 	for (i = 0; i < 20; i++)
 	{
 		protection_check();
+		// Program is working ...
 	}
 
 	/**
