@@ -1,5 +1,4 @@
 program
 *.o
-*c.swp
-*h.swp
+*.swp
 .gitignore

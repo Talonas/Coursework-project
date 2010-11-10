@@ -22,7 +22,7 @@ init_license(void)
 {
 	int ret;
 
-	ret = access("license_2", F_OK);
+	ret = access("license", F_OK);
 	set_license(ret == 0);
 }
 
