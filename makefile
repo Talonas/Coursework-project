@@ -7,18 +7,15 @@ GLOBAL    = global
 CC = gcc
 CFLAGS = -Wall -c
 
-SRC = helper.c matrix.c catmap.c protection.c 
+SRC = catmap.c protection.c 
 OBJ = $(SRC:.c=.o)
 
 $(CAT_MAP): $(OBJ) main.o
 	$(CC) $(LFLAGS) -o $(CAT_MAP) $(OBJ) main.o
 
-$(GLOBAL): $(OBJ) main-2.o
-	$(CC) $(LFLAGS) -o $(GLOBAL) $(OBJ) main-2.o
-
-$(BAKER_MAP): $(OBJ) main-3.o
-	$(CC) $(LFLAGS) -o $(BAKER_MAP) $(OBJ) main-3.o
+$(GLOBAL): $(OBJ) main_global_var.o
+	$(CC) $(LFLAGS) -o $(GLOBAL) $(OBJ) main_global_var.o
 
 clean:
-	rm -fr *~ *.o *.gch $(CAT_MAP) $(GLOBAL) $(BAKER_MAP)
+	rm -fr *~ *.o *.gch $(CAT_MAP) $(GLOBAL)
 	rm -f $(NAME)
