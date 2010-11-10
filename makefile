@@ -1,13 +1,22 @@
+CAT_MAP     = make -C prot_cat_map
+BAKERS_MAP  = make -C prot_bakers_map
+GLOBAL      = make -C prot_global_var
+
+compile:
+	$(CAT_MAP) compile
+	$(BAKERS_MAP) compile
+	$(GLOBAL) compile
+
 cat_map:
-	make -C prot_cat_map compile
+	$(CAT_MAP) compile
 
 bakers_map:
-	make -C prot_bakers_map compile
+	$(BAKERS_MAP) compile
 
 global:
-	make -C prot_global_var compile
+	$(GLOBAL) compile
 
 clean:
-	make -C prot_cat_map clean
-	make -C prot_bakers_map clean
-	make -C prot_global_var clean
+	$(CAT_MAP) clean
+	$(BAKERS_MAP) clean
+	$(GLOBAL) clean
