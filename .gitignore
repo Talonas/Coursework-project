@@ -2,3 +2,6 @@ program
 *.o
 *.swp
 .gitignore
+bakers_map
+cat_map
+global
