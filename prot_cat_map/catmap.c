@@ -52,20 +52,3 @@ cat_map_transform(void)
 	}
 }
 
-/**
- * Prints matrix
- */
-void
-cat_map_print(void)
-{
-	int i, j;
-
-	for (i = 0; i < size; i++)
-	{
-		for (j = 0; j < size; j++)
-		{
-			printf("%d ", matrix[i][j]);
-		}
-		printf("\n");
-	}
-}
